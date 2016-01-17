@@ -1,0 +1,145 @@
+<html>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+<style>
+
+    body {
+        font-family: Arial, Sans-Serif;
+        background-color:gainsboro;
+    }
+    h1 {
+        font-size:50px;
+        color:white;
+    }
+
+    @media only screen and (max-width: 500px) {
+        h1 {
+            font-size: 45px;
+        }
+    }
+
+    @media only screen and (max-width: 470px) {
+        h1 {
+            font-size: 35px;
+        }
+    }
+
+    h1 img {
+        vertical-align:middle;
+        margin:25px;
+        height: 100px;
+    }
+
+    #head {
+       background: linear-gradient(270deg, #00c9ff, #0091ff);box-shadow: 0px 0px 2px 0px rgba(71, 71, 71, 1);
+    }
+
+    #wrapper{
+        max-width:500px;
+        margin-left:auto;
+        margin-right:auto;
+    }
+
+    footer{
+        color:darkgray;
+        font-size:12px;
+        text-align:center;
+        padding: 20px;
+    }
+
+    article {
+        padding:20px;
+        font-size:14px;
+        background-color:white;
+        box-shadow: 0px 0px 2px 0px rgba(71, 71, 71, 1);
+        color:#444;
+    }
+    #info{
+        font-size: 12px;
+    }
+    table{
+        margin:auto;
+        margin-top:20px;
+        margin-bottom: 30px;
+        font-size: 14px;
+        width:90%;
+    }
+    tr{
+     line-height: 150%;
+    }
+    td {
+        width:100%
+    }
+    .left {
+        font-weight: bold;
+        text-align: right;
+        padding-right: 20px;
+        width:50%;
+    }
+    #android {
+        height:auto;
+        width:35%;
+        float:left;
+        margin-left:6%;
+        margin-top:10px;
+    }
+    #ios {
+        margin-top: 7px;
+        height:auto;
+        margin-left:20%;
+        width:33%;
+        margin-right:6%;
+    }
+    #info_box{
+        margin:30px;
+        padding:20px;
+        background-color: lightgrey;
+    }
+    #warn {
+        float:left;
+        height:60px;;
+        line-height: 60px;
+        padding-right:20px;
+    }
+    #mail {
+        vertical-align:middle;
+    }
+
+    a{
+        color:blue;
+    }
+</style>
+
+<body>
+    <div id="wrapper">
+        <div id="head">
+            <h1><img src="http://marcengelmann.com/smart/images/512.png">Smart Insight</h1></div>
+        <article>Hallo '.$name.',
+            <br/>
+            <br/>Smart Insight informiert Sie hiermit über die erfolgreiche Registrierung mit der Matrikelnummer <i>123456789</i> zu folgender Prüfung:
+            <table>
+                <tbody>
+                    <tr>
+                        <td class="left">Prüfung</td><td>Aerodynamik 1</td>
+                    </tr>
+                    <tr>
+                        <td class="left">Datum</td><td>1. April 2016, 14:00</td>
+                    </tr>
+                    <tr>
+                        <td class="left">Raum</td><td>MW2001</td>
+                    </tr>
+                    <tr>
+                        <td class="left">Ansprechpartner</td><td> <a href="mailto:bla@bla.com">Daniel Craig</a> <i id="mail" class="material-icons">mail_outline</i></td>
+                    </tr>
+                </tbody>
+            </table>
+            Freundliche Grüße
+            <br/> Das Smart Insight Team
+            <div id="info_box"><p><i id="warn" class="material-icons">warning</i>Um Smart Insight in der Prüfungseinsicht zu verwenden, ist es erforderlich, sich die entsprechende App vorab auf das Smartphone installiert zu haben.<br/></p><img id="android" src="http://marcengelmann.com/smart/images/de-play-badge.png"><img id="ios" src="http://marcengelmann.com/smart/images/badge_appstore_de.png"></div>
+            <br/><br/><br/>
+            <i id="info">Dies ist eine automatisch generierte Email des Smart Insight Webdienstes. Bitte antworten Sie nicht auf diese Email. Kontaktieren Sie bei Bedarf den Ansprechpartner.</i>
+            </article>
+        <footer>© Smart Insight 2016 </footer>
+    </div>
+</body>
+</html>
