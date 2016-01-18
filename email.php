@@ -43,7 +43,7 @@ function sendMail($matrikelnummer,$exam) {
     $email_resp = getEmailOfPhDe($row2['responsible_person']);
     $name_resp = getNameOfPhDe($row2['responsible_person']);
 
-    $to      = $row['name'].' <'.$row['email'].'>';
+    $to      = "TO: ".$row['name']." <".$row['email'].">";
     $subject = 'Smart Insight: Anmeldung zur Prüfungseinsicht erfolgreich!';
     $message = '<html>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -193,7 +193,7 @@ function sendMail($matrikelnummer,$exam) {
     $headers .= "MIME-Version: 1.0\r\n";
     $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
 
-    mail($to, $subject, $message, $headers);
+    return mail($to, $subject, $message, $headers);
 }
 
 

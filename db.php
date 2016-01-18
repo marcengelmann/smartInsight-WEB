@@ -15,7 +15,7 @@
 
 require('strings.php');
 
-$connection = mysql_connect('localhost',$database_name, $database_password);
+$connection = mysql_connect('localhost',$database_user, $database_password);
 if (!$connection){
     die("Database Connection Failed" . mysql_error());
 }

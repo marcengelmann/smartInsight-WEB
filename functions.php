@@ -13,25 +13,11 @@
  *
  */
 
-function getNameOfPhD($number) {
+function getPhDValueByKey($number,$key) {
     $func_sel_query="Select * from `phds` WHERE `id` = '".$number."';";
     $func_result = mysql_query($func_sel_query);
     $func_row = mysql_fetch_assoc($func_result);
-    return $func_row['name'];
-}
-
-function getEmailOfPhD($number) {
-    $func_sel_query="Select * from `phds` WHERE `id` = '".$number."';";
-    $func_result = mysql_query($func_sel_query);
-    $func_row = mysql_fetch_assoc($func_result);
-    return $func_row['email'];
-}
-
-function getDeviceIDOfPhD($id) {
-    $func_sel_query="Select * from `phds` WHERE `id` = '$id';";
-    $func_result = mysql_query($func_sel_query);
-    $func_row = mysql_fetch_assoc($func_result);
-    return $func_row['deviceID'];
+    return $func_row[$key];
 }
 
 function getNameOfStudent($matrikel,$exam) {

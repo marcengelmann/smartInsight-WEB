@@ -30,10 +30,11 @@ include('email.php');
 
 $errors = array();
 
-$name = $_POST['name'];
-$matrikel = $_POST['matrikelnummer'];
-$email = $_POST['email'];
-$exam = $_POST['options'];
+$name = isset($_POST['name']) ? $_POST['name'] : NULL;
+$matrikel = isset($_POST['matrikelnummer']) ? $_POST['matrikelnummer'] : NULL;
+$email = isset($_POST['email']) ? $_POST['email'] : NULL;
+$exam = isset($_POST['options']) ? $_POST['options'] : NULL;
+
 
 $first_boot = true;
 
@@ -58,24 +59,29 @@ if (empty($matrikel)) {
 if (empty($errors)){
 
      //Checking is user existing in the database or not
-     $query = "SELECT * FROM `students` WHERE matrikelnummer = '".$matrikel."' and linked_exam='".$exam."'";
+     $query = "SELECT * FROM students WHERE matrikelnummer = $matrikel and linked_exam='$exam'";
      $result = mysql_query($query) or die(mysql_error());
      $rows = mysql_num_rows($result);
-     if($rows==1){
-         array_push($errors,"Kombination aus Prüfung und Matrikelnummer existiert bereits!");
+     if($rows!=0){
+        array_push($errors,"Kombination aus Prüfung und Matrikelnummer existiert bereits!");
+         $success = NULL;
      } else{
-         $ins_query="insert into `students`(`name`,`matrikelnummer`,`linked_exam`,`email`,`registration_date`)values('$name','$matrikel','$exam','$email',now())";
-         mysql_query($ins_query) or die(mysql_error());
+
          sendMail($matrikel,$exam);
-         $success = $name.", Sie wurden erfolgreich zur Einsicht für die Prüfung ".getNameOfExam($exam)." angemeldet.";
+//            array_push($errors,"Emailadresse scheint ungültig zu sein!");
+//            $success = NULL;
+//        } else {
+        $ins_query="insert into `students`(`name`,`matrikelnummer`,`linked_exam`,`email`,`registration_date`)values('$name','$matrikel','$exam','$email',now())";
+        mysql_query($ins_query) or die(mysql_error());
 
-         $numbOfStudCount_query = "SELECT * FROM students WHERE linked_exam = '$exam'";
-         $numbResult = mysql_query($numbOfStudCount_query);
-         $numbOfStud = mysql_num_rows($numbResult);
+        $success = $name.", Sie wurden erfolgreich zur Einsicht für die Prüfung ".getNameOfExam($exam)." angemeldet.";
+        $numbOfStudCount_query = "SELECT * FROM students WHERE linked_exam = '$exam'";
+        $numbResult = mysql_query($numbOfStudCount_query);
+        $numbOfStud = mysql_num_rows($numbResult);
 
-         $update_counter_query = "UPDATE exams SET number_of_students = $numbOfStud WHERE short = '$exam'";
-         mysql_query($update_counter_query);
-
+        $update_counter_query = "UPDATE exams SET number_of_students = $numbOfStud WHERE short = '$exam'";
+        mysql_query($update_counter_query);
+       //  }
      }
 }
 ?>
@@ -114,21 +120,21 @@ if (empty($errors)){
 
                                                 <!-- Textfield with Floating Label -->
                                                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                                    <input pattern="[A-Z,a-z, ]*" name="name" class="mdl-textfield__input" type="text" id="name" value="<?php echo $name; ?>">
+                                                    <input pattern="[A-Z,a-z, ]*" name="name" class="mdl-textfield__input" type="text" id="name" value="">
                                                     <label class="mdl-textfield__label" for="name">Name</label>
                                                     <span class="mdl-textfield__error">Bitte nur Buchstaben eingeben!</span>
                                                 </div>
 
                                                 <!-- Textfield with Floating Label -->
                                                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                                    <input pattern="[0-9]{8,12}" name="matrikelnummer" class="mdl-textfield__input" type="text" id="matrikelnummer" value="<?php echo $matrikel; ?>">
+                                                    <input pattern="[0-9]{8,12}" name="matrikelnummer" class="mdl-textfield__input" type="text" id="matrikelnummer" value="">
                                                     <label class="mdl-textfield__label" for="matrikelnummer">Matrikelnummer</label>
                                                     <span class="mdl-textfield__error">Bitte eine 8 - 12 stellige Matrikelnummer eingeben!</span>
                                                 </div>
 
                                                  <!-- Textfield with Floating Label -->
                                                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                                    <input pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" name="email" class="mdl-textfield__input" type="text" id="email" value="<?php echo $email; ?>">
+                                                    <input pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" name="email" class="mdl-textfield__input" type="text" id="email" value="">
                                                     <label class="mdl-textfield__label" for="email">Emailadresse</label><span class="mdl-textfield__error">Bitte eine gültige Emailadresse eingeben!</span>
                                                 </div>
                                                   <select name="options">

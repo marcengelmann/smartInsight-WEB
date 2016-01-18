@@ -1,5 +1,20 @@
 <?php
 
+
+/**
+ * Smart Insight Version 1.0
+ *
+ * Das Tool Smart Insight dient der Erstellung und
+ * Verwaltung von Prüfungseinsichten mithilfe einer
+ * mobilen Applikation.
+ *
+ * @author      Marc Engelmann
+ * @date        12.01.2016
+ * @version     1.0
+ *
+ */
+
+
 function getMenu($additional_link,$additional_link_name, $edit, $delete) {
 
     //Random ist hier nötig, um jedem Menü ein eindeutiges Ausklappmenü zuzuweisen.

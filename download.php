@@ -72,7 +72,7 @@ if($type == "all") {
                 $post['seat'] = getSeatbyMatrikel($post['linked_student'],$exam_name);
                 $post['linked_student'] = getNameOfStudent($post['linked_student'],$exam_name);
             } else {
-               $post['linked_phd'] = getNameOfPhD($post['linked_phd']);
+               $post['linked_phd'] = getPhDValueByKey($post['linked_phd'],'name');
             }
             if($post['subtask_name'] == null) {
                 $post['subtask_name'] = "";
@@ -89,6 +89,7 @@ if($type == "all") {
         while($post = mysql_fetch_assoc($result)) {
             unset($post['password']); // Das Passwort wird nicht heruntergeladen!
             $post['date'] = date("d.m.Y", strtotime($post['date']));
+            $post['responsible_person'] = getPhDValueByKey($post['responsible_person'],'name');
             $posts[$val] = $post;
             $val ++;
         }
@@ -103,7 +104,7 @@ if($type == "all") {
         $post = mysql_fetch_assoc($result_2);
         unset($post['password']); // Das Passwort wird nicht heruntergeladen!
         $post['date'] = date("d.m.Y", strtotime($post['date']));
-        $post['responsible_person'] = getNameOfPhD($post['responsible_person']);
+        $post['responsible_person'] = getPhDValueByKey($post['responsible_person'],'name');
         $posts[$val] = $post;
         $val ++;
     }

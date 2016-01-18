@@ -19,9 +19,10 @@ include("auth.php"); //include auth.php file on all secure pages
 $status = "";
 $query = $_GET['show'];
 
-$id = $_GET['id'];
+$id = isset($_GET['id']) ? $_GET['id'] : '';
 
-$edit = $_GET['edit'];
+$edit = isset($_GET['edit']) ? $_GET['edit'] : '';
+$edit = isset($_GET['edit']) ? $_GET['id'] : '';
 
 $sql_name = "";
 
@@ -149,7 +150,9 @@ exit();
 
 $pre_query = "SELECT * FROM $sql_name WHERE id = $id";
 $pre_result = mysql_query($pre_query);
-$pre_single_result = mysql_fetch_assoc($pre_result);
+if($pre_result) {
+    $pre_single_result = mysql_fetch_assoc($pre_result);
+}
 
 ?>
 

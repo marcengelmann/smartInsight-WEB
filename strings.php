@@ -15,8 +15,9 @@
 
 /* Allgemeine Datenbankeinstellungen */
 
-$database_name = 'db_name';
-$database_password = 'password';
+$database_name = '***';
+$database_user = '***';
+$database_password = '***';
 
 /* Die Strings der Klausur */
 $show_exams = "Klausuren anzeigen";

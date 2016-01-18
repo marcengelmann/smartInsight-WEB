@@ -1,4 +1,18 @@
 <?php
+
+/**
+ * Smart Insight Version 1.0
+ *
+ * Das Tool Smart Insight dient der Erstellung und
+ * Verwaltung von Prüfungseinsichten mithilfe einer
+ * mobilen Applikation.
+ *
+ * @author      Marc Engelmann
+ * @date        12.01.2016
+ * @version     1.0
+ *
+ */
+
 require('db.php');
 include("auth.php");
 ?>
@@ -58,7 +72,7 @@ while($row = mysql_fetch_assoc($result)) {
         $name = $types_array[$x];
         if($name != "linked_exam") {
         if($name == "linked_phd") {
-            echo "<td class=\"mdl-data-table__cell--non-numeric\" align=\"left\">".getNameOfPhD($row[$name])."</td>";
+            echo "<td class=\"mdl-data-table__cell--non-numeric\" align=\"left\">".getPhDValueByKey($row[$name],'name')."</td>";
         }else {
         echo "<td  class=\"mdl-data-table__cell--non-numeric\" align=\"left\">".$row[$name]."</td>";
         }
@@ -79,7 +93,7 @@ while($row = mysql_fetch_assoc($result)) {
                                        $sub_name = $subtask_keys[$x];
                                        if($sub_name == "linked_phd") { ?>
                                         <td class="mdl-data-table__cell--non-numeric">
-                                                <?php echo getNameOfPhD($sub_row[$sub_name]); ?> </td>
+                                                <?php echo getPhDValueByKey($sub_row[$sub_name],'name'); ?> </td>
                                     <?php }else { ?>
                                         <td class="mdl-data-table__cell--non-numeric">
                                                 <?php echo $sub_row[$sub_name]; ?></td>

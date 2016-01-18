@@ -166,7 +166,7 @@ if(getExamByPassword($password)!=$exam_name) {
 
         include('push.php');
 
-        $res = launchPushService(getDeviceIDOfPhD($phd),"Neue Anfrage bei SmartInsight","Anfrage von ".getNameOfStudent($matrikelnummer,$exam_name)." betreffs $type_of_question!");
+        $res = launchPushService(getPhDValueByKey($phd,'deviceID'),"Neue Anfrage bei SmartInsight","Anfrage von ".getNameOfStudent($matrikelnummer,$exam_name)." betreffs $type_of_question!");
         echo $res;
     }
 } else {

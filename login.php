@@ -25,7 +25,7 @@ require('db.php');
 ini_set('session.use_cookies', '1');
 
 $warning = false;
-$logout = $_GET['from'];
+$logout = isset($_GET['from']) ? $_GET['from'] : '';
 
 if (isset($_POST['username'])){
      $logout = "wrong";
