@@ -74,7 +74,7 @@ if (empty($errors)){
         $ins_query="insert into `students`(`name`,`matrikelnummer`,`linked_exam`,`email`,`registration_date`)values('$name','$matrikel','$exam','$email',now())";
         mysql_query($ins_query) or die(mysql_error());
 
-        $success = $name.", Sie wurden erfolgreich zur Einsicht für die Prüfung ".getNameOfExam($exam)." angemeldet.";
+        $success = $name.", Sie wurden erfolgreich zur Einsicht für die Prüfung ".getValueByKey($exam_db_name, "short", $exam, "name")." angemeldet.";
         $numbOfStudCount_query = "SELECT * FROM students WHERE linked_exam = '$exam'";
         $numbResult = mysql_query($numbOfStudCount_query);
         $numbOfStud = mysql_num_rows($numbResult);

@@ -15,9 +15,9 @@
 
 /* Allgemeine Datenbankeinstellungen */
 
-$database_name = '***';
-$database_user = '***';
-$database_password = '***';
+$database_name = '';
+$database_user = '';
+$database_password = '';
 
 /* Die Strings der Klausur */
 $show_exams = "Klausuren anzeigen";
@@ -32,7 +32,7 @@ $exam_image_name = "exam.jpg";
 
 /* Die Strings der Task */
 $task_db_name = "task";
-$task_keys = array("number","name","linked_exam","linked_phd");
+$task_keys = array("number","name","linked_phd");
 $task_strings = array("Aufgabe","Name","Betreuer");
 $task_keys_edit = array("number","name","linked_phd");
 $task_strings_edit = array("Aufgabe","Name","Betreuer");

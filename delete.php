@@ -46,7 +46,7 @@ if($id_name == "all") {
     }
 } else {
     if($db_name == $subtask_db_name) {
-        $query = "DELETE FROM `subtask` WHERE linked_task = ".$id_name." AND linked_exam = '".$query_name."' AND id = $id;";
+        $query = "DELETE FROM `subtask` WHERE id = $id_name;";
         $result = mysql_query($query) or die ( mysql_error());
         header("Location: details.php?id=$query_name");
 

@@ -13,11 +13,15 @@
  *
  */
 
-function getPhDValueByKey($number,$key) {
-    $func_sel_query="Select * from `phds` WHERE `id` = '".$number."';";
-    $func_result = mysql_query($func_sel_query);
-    $func_row = mysql_fetch_assoc($func_result);
-    return $func_row[$key];
+
+/*
+ * Die nachfolgenden Funktionen dienen der Datenbankabfrage bestimmter Parameter.
+ */
+function getValueByKey($dbname, $key, $value, $element) {
+    $query="SELECT * FROM $dbname WHERE $key = $value;";
+    $result = mysql_query($query);
+    $row = mysql_fetch_assoc($result);
+    return $row[$element];
 }
 
 function getNameOfStudent($matrikel,$exam) {
@@ -27,32 +31,11 @@ function getNameOfStudent($matrikel,$exam) {
     return $func_row['name'];
 }
 
-function getPhDForSubtask($number) {
-    $func_sel_query="Select * from `subtask` WHERE `id` = '".$number."';";
-    $func_result = mysql_query($func_sel_query);
-    $func_row = mysql_fetch_assoc($func_result);
-    return $func_row['linked_phd'];
-}
-
 function getSeatbyMatrikel($matrikel,$exam) {
     $func_sel_query="Select * from `students` WHERE matrikelnummer = $matrikel AND linked_exam = '$exam'";
     $func_result = mysql_query($func_sel_query);
     $func_row = mysql_fetch_assoc($func_result);
     return $func_row['seat_number'];
-}
-
-function getPhDForTask($number) {
-    $func_sel_query="Select * from `task` WHERE `id` = '".$number."';";
-    $func_result = mysql_query($func_sel_query);
-    $func_row = mysql_fetch_assoc($func_result);
-    return $func_row['linked_phd'];
-}
-
-function getNameOfExam($short) {
-    $func_sel_query="Select * from `exams` WHERE `short` = '".$short."';";
-    $func_result = mysql_query($func_sel_query);
-    $func_row = mysql_fetch_assoc($func_result);
-    return $func_row['name'];
 }
 
 function isExamLocked($short) {
@@ -62,40 +45,25 @@ function isExamLocked($short) {
     return  ($func_row['locked'] == 1);
 }
 
-function getNameOfTask($short) {
-    $func_sel_query="Select * from `task` WHERE `id` = ".$short.";";
-    $func_result = mysql_query($func_sel_query);
-    while($func_row = mysql_fetch_assoc($func_result)) {
-        $its_it = $func_row['number'];
-    }
-    return $its_it;
-}
-
-function getNameOfSubTask($short) {
-    $func_sel_query="Select * from `subtask` WHERE `id` = ".$short.";";
-    $func_result = mysql_query($func_sel_query);
-    while($func_row = mysql_fetch_assoc($func_result)) {
-        $its_it = $func_row['letter'];
-    }
-    return $its_it;
-}
-
 function getSizeOfTable($tablename) {
-    $size_sel_query="Select * from `".$tablename."`;";
+    $size_sel_query="Select * from $tablename;";
     $size_result = mysql_query($size_sel_query);
     $size = mysql_num_rows($size_result);
     return $size;
 }
 
+/*
+ * Die Funktion zählt alle Aufgaben einer Klausur und gibt sie formatiert zurück.
+ */
 function getSizeOfTaskTables($exam_id) {
 
     include("strings.php");
 
-    $task_sel_query="Select * from `".$task_db_name."` WHERE linked_exam = '".$exam_id."';";
+    $task_sel_query="Select * from `$task_db_name` WHERE linked_exam = '$exam_id';";
     $task_result = mysql_query($task_sel_query);
     $task_size = mysql_num_rows($task_result);
 
-    $subtask_sel_query="Select * from `".$subtask_db_name."` WHERE linked_exam = '".$exam_id."';";
+    $subtask_sel_query="Select * from `$subtask_db_name` WHERE linked_exam = '$exam_id';";
     $subtask_result = mysql_query($subtask_sel_query);
     $subtask_size = mysql_num_rows($subtask_result);
 
@@ -122,6 +90,10 @@ function switchSingularPlurar($number,$singular,$plural) {
     }
 }
 
+
+/*
+ * Diese Funktion bestimmt die Pattern mit denen Texteingaben auf Korrektheit überprüft werden.
+ */
 function getPattern($name) {
     switch ($name) {
         case "matrikelnummer":

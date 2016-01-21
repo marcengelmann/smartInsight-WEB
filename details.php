@@ -44,7 +44,7 @@ $arrlength2 = count($strings_array);
 
                 <?php include("head_part.php"); ?>
                  <div style="background:url(images/exam.jpg) 0% 50% no-repeat;height:150px;width:auto;background-size:cover;" class="dropshadow">
-                        <h2>Detailansicht Prüfung <?php echo getNameOfExam($query_id); ?></h2></div>
+                        <h2>Detailansicht Prüfung <?php echo getValueByKey($exam_db_name, "short", $query_id,"name"); ?></h2></div>
 
                 <table width="100%" class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
                     <tbody>
@@ -70,12 +70,10 @@ while($row = mysql_fetch_assoc($result)) {
 
     for($x = 0; $x < $arrlength; $x++) {
         $name = $types_array[$x];
-        if($name != "linked_exam") {
         if($name == "linked_phd") {
-            echo "<td class=\"mdl-data-table__cell--non-numeric\" align=\"left\">".getPhDValueByKey($row[$name],'name')."</td>";
-        }else {
+            echo "<td class=\"mdl-data-table__cell--non-numeric\" align=\"left\">".getValueByKey($phd_db_name, "id", $row[$name], "name")."</td>";
+        } else {
         echo "<td  class=\"mdl-data-table__cell--non-numeric\" align=\"left\">".$row[$name]."</td>";
-        }
         }
     }
         ?>
@@ -93,14 +91,14 @@ while($row = mysql_fetch_assoc($result)) {
                                        $sub_name = $subtask_keys[$x];
                                        if($sub_name == "linked_phd") { ?>
                                         <td class="mdl-data-table__cell--non-numeric">
-                                                <?php echo getPhDValueByKey($sub_row[$sub_name],'name'); ?> </td>
+                                                <?php echo getValueByKey($phd_db_name, "id", $sub_row[$sub_name],'name'); ?> </td>
                                     <?php }else { ?>
                                         <td class="mdl-data-table__cell--non-numeric">
                                                 <?php echo $sub_row[$sub_name]; ?></td>
                                  <?php      }
                                    } ?>
                                         <td class="mdl-data-table__cell" >
-                                              <?php getMenu(NULL,"",("insert.php?show=subtask&linked_exam=".$query_id."&linked_task=".$row['id']."&edit=true&id=".$sub_row['id']),("delete.php?id=".$row['id']."&db_name=".$sub_sql_name."&show=".$query_id)); ?>
+                                              <?php getMenu(NULL,"",("insert.php?show=subtask&linked_exam=".$query_id."&linked_task=".$row['id']."&edit=true&id=".$sub_row['id']),("delete.php?id=".$sub_row['id']."&db_name=".$sub_sql_name."&show=".$query_id)); ?>
 
           </td>
                                 </tr>

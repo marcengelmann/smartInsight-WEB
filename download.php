@@ -66,13 +66,14 @@ if($type == "all") {
     $val = 0;
     if(mysql_num_rows($result)) {
         while($post = mysql_fetch_assoc($result)) {
-            $post['task_name'] = getNameOfTask($post['linked_task']);
-            $post['subtask_name'] = getNameOfSubTask($post['linked_subtask']);
+
+            $post['task_name'] = getValueByKey($task_db_name, "id", $post['linked_task'],"number");
+            $post['subtask_name'] = getValueByKey($subtask_db_name, "id", $post['linked_subtask'],"letter");
             if($phd_mode) {
                 $post['seat'] = getSeatbyMatrikel($post['linked_student'],$exam_name);
                 $post['linked_student'] = getNameOfStudent($post['linked_student'],$exam_name);
             } else {
-               $post['linked_phd'] = getPhDValueByKey($post['linked_phd'],'name');
+               $post['linked_phd'] = getValueByKey($phd_db_name, "id", $post['linked_phd'],'name');
             }
             if($post['subtask_name'] == null) {
                 $post['subtask_name'] = "";
@@ -89,7 +90,7 @@ if($type == "all") {
         while($post = mysql_fetch_assoc($result)) {
             unset($post['password']); // Das Passwort wird nicht heruntergeladen!
             $post['date'] = date("d.m.Y", strtotime($post['date']));
-            $post['responsible_person'] = getPhDValueByKey($post['responsible_person'],'name');
+            $post['responsible_person'] = getValueByKey($phd_db_name, "id", $post['responsible_person'],'name');
             $posts[$val] = $post;
             $val ++;
         }
@@ -104,7 +105,7 @@ if($type == "all") {
         $post = mysql_fetch_assoc($result_2);
         unset($post['password']); // Das Passwort wird nicht heruntergeladen!
         $post['date'] = date("d.m.Y", strtotime($post['date']));
-        $post['responsible_person'] = getPhDValueByKey($post['responsible_person'],'name');
+        $post['responsible_person'] = getValueByKey($phd_db_name, "id", $post['responsible_person'],'name');
         $posts[$val] = $post;
         $val ++;
     }

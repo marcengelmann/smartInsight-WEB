@@ -33,9 +33,9 @@ $phd_id = $_GET['phd'];
 $email = $_GET['email'];
 
 if($subtask_id == null) {
-    $phd = getPhDForTask($task_id);
+    $phd = getValueForKey($task_db_name,"id",$task_id,"linked_phd");
 } else {
-    $phd = getPhDForSubtask($subtask_id);
+    $phd = getValueForKey($subtask_db_name,"id",$subtask_id,"linked_phd");
 }
 
 header('Content-type:application/json');
@@ -166,7 +166,7 @@ if(getExamByPassword($password)!=$exam_name) {
 
         include('push.php');
 
-        $res = launchPushService(getPhDValueByKey($phd,'deviceID'),"Neue Anfrage bei SmartInsight","Anfrage von ".getNameOfStudent($matrikelnummer,$exam_name)." betreffs $type_of_question!");
+        $res = launchPushService(getValueByKey($phd_db_name, "id", $phd,'deviceID'),"Neue Anfrage bei SmartInsight","Anfrage von ".getNameOfStudent($matrikelnummer,$exam_name)." betreffs $type_of_question!");
         echo $res;
     }
 } else {

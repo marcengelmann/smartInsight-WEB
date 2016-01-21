@@ -99,9 +99,9 @@ $show_detail = NULL;
                             if($query == "exam") {
                                echo("<td class=\"mdl-data-table__cell--non-numeric\"><strong>Fragen</strong></td>");
                             }
-                            ?>
+                             if($query == "student") {?>
                                 <td><i class="material-icons option-link" onclick="location.href='delete.php?id=all&db_name=<?php echo $sql_name; ?>&show=<?php echo $query; ?>'">delete</i></td>
-
+                            <?php } ?>
                             </tr>
                             <?php
 $count=1;
@@ -113,7 +113,7 @@ while($row = mysql_fetch_assoc($result)) { ?>
                                    for($x = 0; $x < $arrlength; $x++) {
                                        $name = $types_array[$x];
                                        if($name== "linked_phd") {
-                                            echo "<td class=\"mdl-data-table__cell--non-numeric\" align=\"center\">".getPhDValueByKey($row[$name],'name')."</td>";
+                                            echo "<td class=\"mdl-data-table__cell--non-numeric\" align=\"center\">".getValueByKey($phd_db_name, "id", $row[$name], "name")."</td>";
                                        }else if($name == "currently_online") {
                                             $online_string = "account_box";
                                             if($row[$name] == "0") {
@@ -152,9 +152,9 @@ while($row = mysql_fetch_assoc($result)) { ?>
                                        } else if($name== "linked_student") {
                                             echo "<td class=\"mdl-data-table__cell--non-numeric\" align=\"center\">".getNameOfStudent($row['linked_student'],$row['linked_exam'])."</td>";
                                        }else if($name== "responsible_person") {
-                                            echo "<td class=\"mdl-data-table__cell--non-numeric\" align=\"center\">".getPhDValueByKey($row['responsible_person'],'name')."</td>";
+                                            echo "<td class=\"mdl-data-table__cell--non-numeric\" align=\"center\">".getValueByKey($phd_db_name, "id",$row['responsible_person'],'name')."</td>";
                                        } else if($name== "linked_task") {
-                                            echo "<td class=\"mdl-data-table__cell--non-numeric\" align=\"center\">".getNameOfTask($row[$name]).getNameOfSubTask($row['linked_subtask'])."</td>";
+                                            echo "<td class=\"mdl-data-table__cell--non-numeric\" align=\"center\">".getValueByKey($task_db_name, "id", $row[$name],"number").getValueByKey($subtask_db_name, "id", $row['linked_subtask'],"letter")."</td>";
                                        }else if($name== "linked_subtask") {
                                            //
                                        }else {
