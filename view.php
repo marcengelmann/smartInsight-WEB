@@ -151,9 +151,9 @@ while($row = mysql_fetch_assoc($result)) { ?>
                                             echo "<td class=\"mdl-data-table__cell--non-numeric\" align=\"center\">".str_replace($english_months, $deutsch_monate, $date_string)."</td>";
                                        } else if($name== "linked_student") {
                                             echo "<td class=\"mdl-data-table__cell--non-numeric\" align=\"center\">".getNameOfStudent($row['linked_student'],$row['linked_exam'])."</td>";
-                                       }else if($name== "responsible_person") {
-                                            echo "<td class=\"mdl-data-table__cell--non-numeric\" align=\"center\">".getValueByKey($phd_db_name, "id",$row['responsible_person'],'name')."</td>";
-                                       } else if($name== "linked_task") {
+                                       }else if($name == "responsible_person") {
+                                            echo "<td class=\"mdl-data-table__cell--non-numeric\" align=\"center\">".getValueByKey($phd_db_name, "id",$row[$name],"name")."</td>";
+                                       } else if($name == "linked_task") {
                                             echo "<td class=\"mdl-data-table__cell--non-numeric\" align=\"center\">".getValueByKey($task_db_name, "id", $row[$name],"number").getValueByKey($subtask_db_name, "id", $row['linked_subtask'],"letter")."</td>";
                                        }else if($name== "linked_subtask") {
                                            //

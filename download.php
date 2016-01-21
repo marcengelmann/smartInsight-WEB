@@ -13,22 +13,24 @@
  *
  */
 
-error_reporting(E_ALL);
+error_reporting(E_ALL ^ E_DEPRECATED);
 
 require('db.php');
 require('strings.php');
 include('functions.php');
 
-$intent = $_GET['intent'];
-$matrikelnummer = $_GET['matrikelnummer'];
-$exam_name = $_GET['exam_name'];
-$type = $_GET['type'];
-$password = $_GET['pw'];
+$intent = isset($_GET['intent']) ? $_GET['intent']  : null;
+$matrikelnummer = isset($_GET['matrikelnummer']) ? $_GET['matrikelnummer']  : null;
+$exam_name =  isset($_GET['exam_name']) ? $_GET['exam_name']  : null;
+$type =  isset($_GET['type']) ? $_GET['type']  : null;
+$password =  isset($_GET['pw']) ? $_GET['pw']  : null;
 
-$id_phd = $_GET['phd'];
-$email = $_GET['email'];
+$id_phd =  isset($_GET['phd']) ? $_GET['phd']  : null;
+$email =  isset($_GET['email']) ? $_GET['email']  : null;
 
 $phd_mode = false;
+
+$posts = null;
 
 //Wenn Passwort oder Prüfungsname nicht gesetzt sind, wird die Seite geschlossen.
 if(!isset($exam_name)||!isset($password)) {

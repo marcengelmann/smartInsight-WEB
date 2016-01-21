@@ -18,24 +18,24 @@ include('functions.php');
 
 $date_string = "Y-m-d H:i:s";
 
-$intent = $_GET['intent'];
-$matrikelnummer = $_GET['matrikelnummer'];
-$task_id = $_GET['task_id'];
-$subtask_id = $_GET['subtask_id'];
-$type_of_question = $_GET['type_of_question'];
-$exam_name = $_GET['exam_name'];
-$password = $_GET['pw'];
-$request_id = $_GET['request_id'];
-$seat = $_GET['seat'];
+$intent = isset($_GET['intent']) ? $_GET['intent']  : null;
+$matrikelnummer = isset($_GET['matrikelnummer']) ? $_GET['matrikelnummer']  : null;
+$task_id =  isset($_GET['task_id']) ? $_GET['task_id']  : null;
+$subtask_id = isset($_GET['subtask_id']) ? $_GET['subtask_id']  : null;
+$type_of_question =  isset($_GET['type_of_question']) ? $_GET['type_of_question']  : null;
+$exam_name =  isset($_GET['exam_name']) ? $_GET['exam_name']  : null;
+$password = isset($_GET['pw']) ? $_GET['pw']  : null;
+$request_id =isset($_GET['request_id']) ? $_GET['request_id']  : null;
+$seat =  isset($_GET['seat']) ? $_GET['seat']  : null;
 
-$deviceID  = $_GET['deviceID'];
-$phd_id = $_GET['phd'];
-$email = $_GET['email'];
+$deviceID  =  isset($_GET['deviceID']) ? $_GET['deviceID']  : null;
+$phd_id =  isset($_GET['phd']) ? $_GET['phd']  : null;
+$email =  isset($_GET['email']) ? $_GET['email']  : null;
 
 if($subtask_id == null) {
-    $phd = getValueForKey($task_db_name,"id",$task_id,"linked_phd");
+    $phd = getValueByKey($task_db_name,"id",$task_id,"linked_phd");
 } else {
-    $phd = getValueForKey($subtask_db_name,"id",$subtask_id,"linked_phd");
+    $phd = getValueByKey($subtask_db_name,"id",$subtask_id,"linked_phd");
 }
 
 header('Content-type:application/json');
@@ -114,7 +114,7 @@ if(getExamByPassword($password)!=$exam_name) {
         }
 
         //CHECK ob es schon Anfragen für den PhD gibt.
-        if(mysql_num_rows($phd_result) != 0) {
+        if($phd_result) {
 
             $phd_date_item = mysql_fetch_assoc($phd_result);
             $phd_date_item_time = date($date_string, strtotime($phd_date_item['end_time']));
@@ -167,7 +167,6 @@ if(getExamByPassword($password)!=$exam_name) {
         include('push.php');
 
         $res = launchPushService(getValueByKey($phd_db_name, "id", $phd,'deviceID'),"Neue Anfrage bei SmartInsight","Anfrage von ".getNameOfStudent($matrikelnummer,$exam_name)." betreffs $type_of_question!");
-        echo $res;
     }
 } else {
     $settings = array("result"=>"Ein unbekannter Fehler ist aufgetreten!");

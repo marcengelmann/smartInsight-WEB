@@ -16,12 +16,13 @@
 require("db.php");
 include("functions.php");
 
-$matrikelnummer = $_POST['matrikelnummer'];
-$password = $_POST['password'];
+$matrikelnummer = isset($_POST['matrikelnummer']) ? $_POST['matrikelnummer']  : null;
+$password = isset($_POST['password']) ? $_POST['password']  : null;
 $boolean = false;
-$seat = $_POST['seat'];
-$phd = $_POST['phd'];
-$email_phd = $_POST['email'];
+
+$seat = isset($_POST['seat']) ? $_POST['seat']  : null;
+$phd = isset($_POST['phd']) ? $_POST['phd']  : null;
+$email_phd = isset($_POST['email']) ? $_POST['email']  : null;
 $error = "access_denied";
 
 if(isset($email_phd)&&$phd="yes") {
@@ -36,6 +37,7 @@ if(isset($email_phd)&&$phd="yes") {
         //CHECK, ob der phd überhaupt vorhanden ist und mit einer Prüfung verknüpft ist!
         $query_check = "SELECT * from `phds` WHERE email = '$email_phd'";
         $result_check = mysql_query($query_check);
+
         if(mysql_num_rows($result_check) != 0 ) {
 
             $seat_query = "UPDATE phds SET last_login = now() WHERE email = '$email_phd'";
@@ -50,9 +52,6 @@ if(isset($email_phd)&&$phd="yes") {
             echo json_encode($post);
             exit();
         }
-    } else {
-    echo $error;
-    exit();
     }
 } else if(isset($matrikelnummer)) {
 
@@ -82,13 +81,10 @@ if(isset($email_phd)&&$phd="yes") {
             $post['seat_number'] = $seat;
             header('Content-type: application/json');
             echo json_encode($post);
+            exit();
         }
-    } else {
-    echo $error;
-    exit();
     }
-} else {
-    echo $error;
-    exit();
 }
+echo $error;
+exit();
 ?>

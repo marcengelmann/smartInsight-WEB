@@ -20,8 +20,11 @@
 function getValueByKey($dbname, $key, $value, $element) {
     $query="SELECT * FROM $dbname WHERE $key = $value;";
     $result = mysql_query($query);
-    $row = mysql_fetch_assoc($result);
-    return $row[$element];
+    if($result) {
+        $row = mysql_fetch_assoc($result);
+            return $row[$element];
+        }
+    return "<b><i>FEHLER</i></b>";
 }
 
 function getNameOfStudent($matrikel,$exam) {
